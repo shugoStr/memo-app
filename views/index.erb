@@ -1,10 +1,9 @@
-  <body>
-    <div class="container">
-        <a class="btn-primary" href="/new"> +メモを追加</a>
-        ・
-        ・
-        ・
-      </div>
-    </div>
-  </body>
-</html>
+<div class="container">
+  <h2>メモ一覧</h2>
+  <ul class="memos">
+    <% @memos.each do |memo|  %>
+      <li><a href="/memos/<%= memo['id'] %>"><%= h(memo['title']) %></a></li>
+    <% end %>
+  </ul>
+  <a class="btn-primary" href="/new"> +メモを追加</a>
+</div>

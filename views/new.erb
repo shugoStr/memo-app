@@ -1,13 +1,16 @@
-<form action="/" method="post">
-    <label for="article">タイトル</label>
-    <input type="text" name="article">
-    <p></p>
+<div class="new">
+  <form action="/memos" method="POST">
+    <h3>タイトル</h3>
     <div>
-        <label for="name">内容</label>
-        <textarea name= "article" cols="30" rows="3"></textarea>
-      </div>
+      <input type="text" name="title" required>
+    </div>
+    <h3>メモの内容</h3>
     <div>
-      <button type="submit"href="/memos">＋メモを追加</button>
+      <textarea name="content" required></textarea>
+    </div>
+    <div>
+      <button type="submit">送信する</button>
       <a class="btn-danger" href="/memos"> キャンセル</a>
     </div>
-</form>
+  </form>
+</div>
