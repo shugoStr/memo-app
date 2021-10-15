@@ -1,9 +1,10 @@
-<div class="container">
-  <h2>メモ一覧</h2>
-  <ul class="memos">
+<legend>memo list</legend>
+  <ul class="nav flex-column">
     <% @memos.each do |memo|  %>
-      <li><a href="/memos/<%= memo['id'] %>"><%= h(memo['title']) %></a></li>
+      <li class="nav-item">
+      <a class="list-group-item list-group-item-action" href="/memos/<%= h(memo['id']) %>"><%= h(memo['title']) %></a>
+      </li>
     <% end %>
   </ul>
-  <a class="btn-primary" href="/new"> +メモを追加</a>
+  <a href="/new"><button type="button" class="btn btn-primary">+メモを追加する</button></a>
 </div>

@@ -15,15 +15,19 @@ get '/' do
   redirect to('/memos')
 end
 
+def build_json_data
+  Dir.glob('storage/*').sort.map { |file| JSON.parse(File.read(file)) }
+end
+
 get '/memos' do
-  json = Dir.glob('storage/*').sort_by { |file| File.birthtime(file) }
-  @memos = json.map { |file| JSON.parse(File.read(file)) }
+  @memos = build_json_data
   erb :index
 end
 
 post '/memos' do
-  hash = { id: params[:id] = '1', title: params[:title], content: params[:content] }
-  File.open("storage/#{Time.now.strftime('%Y%m%d_%H:%M:%S')}.json", 'w') { |file| file.puts JSON.generate(hash) }
+  params[:id] = Time.now.strftime('%Y%m%d_%H%M%S')
+  data_hash = { id: params[:id], title: params[:title], content: params[:content] }
+  File.open("storage/#{Time.now.strftime('%Y%m%d_%H%M%S')}.json", 'w') { |file| file.puts JSON.generate(data_hash) }
   redirect to('/memos')
 end
 
@@ -31,21 +35,16 @@ get '/new' do
   erb :new
 end
 
-# def find_id(memo[:id])
-#   # フォルダにファイルある？
-#   if Dir.empty?(/storage)
-#     # →ないなら、1セット
-#     memo[:id] = '1'
-#   else
-#     files = Dir.glob('memos/*').sort_by { |file| File.id(file) }
-#     # あるなら、ファイルソートして、最後のidをセット
-#     # last_idの次の値をセットする
-#     # sequence = 1.step
-#     # sequence.next #=> 1
-#   end
-# end
+def file_path
+  "storage/#{File.basename(params[:id])}.json"
+end
 
+get '/memos/:id' do
+  @title = 'メモ内容'
+  @memo = JSON.parse(File.read(file_path), symbolize_names: true)
+  erb :show
+end
 
 not_found do
-  "MIU 404 NOT FOUND."
+  erb :not_found
 end

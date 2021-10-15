@@ -1,16 +1,21 @@
-<div class="new">
-  <form action="/memos" method="POST">
-    <h3>タイトル</h3>
-    <div>
-      <input type="text" name="title" required>
-    </div>
-    <h3>メモの内容</h3>
-    <div>
-      <textarea name="content" required></textarea>
-    </div>
-    <div>
-      <button type="submit">送信する</button>
-      <a class="btn-danger" href="/memos"> キャンセル</a>
-    </div>
-  </form>
-</div>
+<form action="/memos" method="POST">
+  <h3>タイトル</h3>
+  <div>
+    <input type="text" name="title" required>
+  </div>
+
+  <h3>メモの内容</h3>
+  <div>
+    <textarea name="content" required></textarea>
+  </div>
+  <button type="submit" class="btn btn-primary">追加する</button>
+  <a class="btn-danger" href="/memos"><button type="button" class="btn btn-danger">キャンセル</button></a>
+</form>
+
+<script>
+$(function() {
+    $('.btn').on('click', function() {
+        $('.btn').prop('disabled', true);
+    });
+});
+</script>
