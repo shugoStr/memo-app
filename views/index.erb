@@ -1,13 +1,14 @@
-<legend>memo list</legend>
-  <div>
-    <ul class="nav flex-column">
-      <% @memos.each do |memo|  %>
-        <li class="nav-item">
-        <a class="list-group-item list-group-item-action" href="/memos/<%= h(memo['id']) %>"><%= h(memo['title']) %></a>
-        </li>
-      <% end %>
-    </ul>
+<div class="card" style="width: 22rem;">
+  <div class="card-header">
+  メモリスト
   </div>
+  <ul class="list-group list-group-flush">
+  <% @memos.each do |memo| %>
+    <li class="list-group-item"><a class="stretched-link" href="/memos/<%= memo['id'] %>"><%= h(memo['title']) %></a></li>
+  <% end %>
+  </ul>
+</div>
+
 <div class="add_button">
   <a href="/new"><button type="button" class="btn btn-primary">+メモを追加する</button></a>
 </div>

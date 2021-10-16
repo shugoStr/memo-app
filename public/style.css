@@ -1,25 +1,31 @@
-
-.container {
-    display: grid;
-    place-items: center;
+a {
+  color:#0000FF; text-decoration:none;
   }
 
-.header {
-  background-color: gray;
-  flex: 1;
-  margin-top: 0.7em;
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 50em;
+  padding: 5em;
+  }
+
+.container-header{
+  background-color: azure;
+  margin-bottom: 0.7em;
+}
+
+.memo-list{
+  padding-bottom: 0.3em;
+}
+
+.card-index{
+  padding: 0.3em;
 }
 
 .add_button {
-  margin: 1em;
-  padding: 1em;
+  padding-top: 1.2em;
 }
 
-.btn-toolbar {
+.back-edit {
   padding: 1em;
-}
-
-#dialog{
-  position:fixed;
-  left: -400px;
 }

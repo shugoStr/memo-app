@@ -1,8 +1,7 @@
 require 'sinatra'
 require 'sinatra/reloader'
 require 'erb'
-require "sinatra/json"
-require 'tmpdir'
+require 'sinatra/json'
 
 # XSS
 helpers do
@@ -24,6 +23,10 @@ get '/memos' do
   erb :index
 end
 
+get '/new' do
+  erb :new
+end
+
 post '/memos' do
   params[:id] = Time.now.strftime('%Y%m%d_%H%M%S')
   data_hash = { id: params[:id], title: params[:title], content: params[:content] }
@@ -31,18 +34,26 @@ post '/memos' do
   redirect to('/memos')
 end
 
-get '/new' do
-  erb :new
-end
-
 def file_path
   "storage/#{File.basename(params[:id])}.json"
 end
 
 get '/memos/:id' do
-  @title = 'メモ詳細'
   @memo = JSON.parse(File.read(file_path), symbolize_names: true)
   erb :show
+end
+
+get '/memos/:id/edit' do
+  @memo = JSON.parse(File.read(file_path), symbolize_names: true)
+  erb :edit
+end
+
+patch '/memos/:id' do
+  File.open(file_path, 'w') do |file|
+    data_hash = { id: params[:id], title: params[:title], content: params[:content] }
+    JSON.dump(data_hash, file)
+  end
+  redirect "/memos"
 end
 
 delete '/memos/:id' do

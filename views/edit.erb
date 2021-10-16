@@ -1,0 +1,26 @@
+<div>
+  <form action="/memos/<%= @memo[:id] %>" method="POST">
+    <h3>タイトル</h3>
+    <div>
+      <input type="text" name="title" value=<%= h(@memo[:title]) %> required style="width: 22rem;">
+    </div>
+
+    <h3>メモの内容</h3>
+    <div>
+      <textarea name="content" required style="width: 22rem;"><%= h(@memo[:content]) %></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">更新する</button>
+    <input type="hidden" name="_method" value="PATCH">
+  </form>
+  <div class="back-edit">
+    <a href="/memos"><button class="btn btn-secondary" formnovalidate>もどる</button></a>
+  </div>
+</div>
+
+<script>
+$(function() {
+    $('.btn').on('click', function() {
+        $('.btn').prop('disabled', true);
+    });
+});
+</script>
