@@ -40,9 +40,14 @@ def file_path
 end
 
 get '/memos/:id' do
-  @title = 'メモ内容'
+  @title = 'メモ詳細'
   @memo = JSON.parse(File.read(file_path), symbolize_names: true)
   erb :show
+end
+
+delete '/memos/:id' do
+  File.delete(file_path)
+  redirect to('/memos')
 end
 
 not_found do

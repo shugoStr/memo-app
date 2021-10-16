@@ -7,9 +7,9 @@
   <form action="/memos/<%= @memo[:id] %>/edit" method="get">
     <input class="btn btn-primary" type="submit" value="編集する">
   </form>
-  <form action="/memos/<%= @memo[:id] %>" method="post">
+  <form action="/memos/<%=@memo[:id]%>" method="post">
     <input type="hidden" name="_method" value="DELETE">
-    <input class="btn btn-danger" type="submit" value="削除する">
+    <input type="submit" class="btn btn btn-danger" value="削除する" onclick="return confirm('本当に削除しますか？')">
   </form>
-  <a href="/memos"><button class="btn btn-secondary" >もどる</button></a>
+    <a href="/memos"><button class="btn btn-secondary" >もどる</button></a>
 </div>
