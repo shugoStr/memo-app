@@ -2,13 +2,14 @@
   <p><%= h(@memo[:title]) %></p>
 <h2>内容</h2>
 <p><%= h(@memo[:content]) %></p>
-<form action="/memos/<%= @memo[:id] %>/edit" method="get">
-  <input type="submit" value="編集する">
-</form>
-<form action="/memos/<%= @memo[:id] %>" method="post">
-  <input type="hidden" name="_method" value="DELETE">
-  <input type="submit" value="削除する">
-</form>
-<form action="/memos" method="get">
-  <input type="submit"  value="戻る">
-</form>
+
+<div class="btn-toolbar" role="toolbar">
+  <form action="/memos/<%= @memo[:id] %>/edit" method="get">
+    <input class="btn btn-primary" type="submit" value="編集する">
+  </form>
+  <form action="/memos/<%= @memo[:id] %>" method="post">
+    <input type="hidden" name="_method" value="DELETE">
+    <input class="btn btn-danger" type="submit" value="削除する">
+  </form>
+  <a href="/memos"><button class="btn btn-secondary" >もどる</button></a>
+</div>
