@@ -1,12 +1,10 @@
 <div class="card" style="width: 22rem;">
-  <div class="card-header">
-  メモリスト
-  </div>
-  <ul class="list-group list-group-flush">
+  <div class="card-header">メモリスト</div>
   <% @memos.each do |memo| %>
-    <li class="list-group-item"><a class="stretched-link" href="/memos/<%= memo['id'] %>"><%= h(memo['title']) %></a></li>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item"><a class="stretched-link" href="/memos/<%= memo['id'] %>"><%= h(memo['title']) %></a></li>
+    </ul>
   <% end %>
-  </ul>
 </div>
 
 <div class="add_button">

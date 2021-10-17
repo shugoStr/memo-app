@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'sinatra'
 require 'sinatra/reloader'
 require 'erb'
@@ -53,7 +55,7 @@ patch '/memos/:id' do
     data_hash = { id: params[:id], title: params[:title], content: params[:content] }
     JSON.dump(data_hash, file)
   end
-  redirect "/memos"
+  redirect to("/memos/#{params[:id]}")
 end
 
 delete '/memos/:id' do

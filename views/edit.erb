@@ -1,21 +1,20 @@
-<div>
+<div class="card" style="width: 22rem;">
   <form action="/memos/<%= @memo[:id] %>" method="POST">
+    <div class="card-header">
     <h3>タイトル</h3>
-    <div>
-      <input type="text" name="title" value=<%= h(@memo[:title]) %> required style="width: 22rem;">
+      <input type="text" name="title" value=<%= h(@memo[:title]) %> style="width: 20rem;" required>
     </div>
-
-    <h3>メモの内容</h3>
-    <div>
-      <textarea name="content" required style="width: 22rem;"><%= h(@memo[:content]) %></textarea>
-    </div>
-    <button type="submit" class="btn btn-primary">更新する</button>
-    <input type="hidden" name="_method" value="PATCH">
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item"><h3>メモの内容</h3>
+        <textarea name="content" style="width: 20rem;" required><%= h(@memo[:content]) %></textarea>
+      </li>
+      <li class="list-group-item"><button type="submit" class="btn btn-primary">更新する</button></li>
+        <input type="hidden" name="_method" value="PATCH">
+      <li class="list-group-item"><a method="GET" href="/memos"><button class="btn btn-secondary">もどる</button></a></li>
+    </ul>
   </form>
-  <div class="back-edit">
-    <a href="/memos"><button class="btn btn-secondary" formnovalidate>もどる</button></a>
-  </div>
 </div>
+
 
 <script>
 $(function() {

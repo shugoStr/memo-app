@@ -10,15 +10,12 @@
     <title>memo app</title>
   </head>
 
-
-  <div class=container>
-    <body>
-    <header class="container-header" style="width: 22rem;">
-      <h1><a href="/memos">メモアプリ</a></h1>
-    </header>
-    <div class=container-body>
-      <%= yield %>
-    </div>
+  <body class="container">
+  <header class="container-header" style="width: 22rem;">
+    <h1><a href="/memos">メモアプリ</a></h1>
+  </header>
+  <div class=container-body style="width: 22rem;">
+    <%= yield %>
+  </div>
   </body>
-</div>
 </html>
