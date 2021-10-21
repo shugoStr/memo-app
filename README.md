@@ -6,6 +6,8 @@ Thank you for coming!
 
 ## Usage
 1. ```https://github.com/shugoStr/memo-app.git``` にてクローン。
-2. ```cd memo-app```後に、　```bundle install``` にて必要Gemをインストール。
-3. ```bundle exec ruby app.rb``` にてアプリ実行。
-4. ```http://localhost:9292/``` へアクセス。
+2. ```gem install sinatra``` を実行。
+3. ```cd memo-app```後に、　```bundle install``` を実行。
+4. ```bundle exec ruby app.rb``` にてアプリ起動。
+5. ```http://localhost:4567``` へアクセス。
+6. メモの追加・削除・編集が行えます。
