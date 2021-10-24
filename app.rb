@@ -45,6 +45,19 @@ get '/memos/:id' do
   erb :show
 end
 
+get '/memos/:id/edit' do
+  @memo = JSON.parse(File.read(file_path), symbolize_names: true)
+  erb :edit
+end
+
+patch '/memos/:id' do
+  File.open(file_path, 'w') do |file|
+    data_hash = { id: params[:id], title: params[:title], content: params[:content] }
+    JSON.dump(data_hash, file)
+  end
+  redirect to("/memos/#{params[:id]}")
+end
+
 not_found do
   erb :not_found
 end
