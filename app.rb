@@ -58,6 +58,11 @@ patch '/memos/:id' do
   redirect to("/memos/#{params[:id]}")
 end
 
+delete '/memos/:id' do
+  File.delete(file_path)
+  redirect to('/memos')
+end
+
 not_found do
   erb :not_found
 end
