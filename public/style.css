@@ -1,0 +1,35 @@
+a {
+  color:#0000FF;
+  text-decoration:none;
+  }
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 22em;
+  padding: 2em;
+  background-color: aquamarine;
+}
+
+.container-header{
+  background-color: azure;
+  margin-bottom: 0.7em;
+  display: flex ;
+  justify-content: center;
+}
+
+.memo-list{
+  padding-bottom: 0.3em;
+}
+
+.card-index{
+  padding: 0.3em;
+}
+
+.add_button {
+  padding-top: 1.2em;
+}
+
+.back-edit {
+  padding: 1em;
+}

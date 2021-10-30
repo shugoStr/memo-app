@@ -1,0 +1,24 @@
+<div class="card" style="width: 22rem;">
+  <form action="/memos/<%= @memo[:id] %>" method="POST">
+    <div class="card-header">
+    <h3>タイトル</h3>
+      <input type="text" name="title" value=<%= h(@memo[:title]) %> style="width: 20rem;" required>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item"><h3>メモの内容</h3>
+        <textarea name="content" style="width: 20rem;" required><%= h(@memo[:content]) %></textarea>
+      </li>
+      <li class="list-group-item"><button type="submit" class="btn btn-primary">更新する</button></li>
+        <input type="hidden" name="_method" value="PATCH">
+      <li class="list-group-item"><a method="GET" href="/memos"><button class="btn btn-secondary">もどる</button></a></li>
+    </ul>
+  </form>
+</div>
+
+<script>
+$(function() {
+    $('.btn').on('click', function() {
+        $('.btn').prop('disabled', true);
+    });
+});
+</script>
