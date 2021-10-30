@@ -46,6 +46,7 @@ patch "/memos/:id" do
 end
 
 delete "/memos/:id" do
+  connect.exec("DELETE FROM memos WHERE id = '#{params[:id]}'")
   redirect to("/memos")
 end
 
