@@ -38,10 +38,12 @@ get "/memos/:id" do
 end
 
 get "/memos/:id/edit" do
+  @memo = connect.exec("SELECT * FROM memos WHERE id = '#{params[:id]}'")
   erb :edit
 end
 
 patch "/memos/:id" do
+  connect.exec("UPDATE memos SET title = '#{params[:title]}', content = '#{params[:content]}' WHERE id= '#{params[:id]}'")
   redirect to("/memos/#{params[:id]}")
 end
 
