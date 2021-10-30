@@ -19,7 +19,7 @@ get "/" do
 end
 
 get "/memos" do
-  @memos = connect.exec("SELECT * FROM memos;")
+  @memos = connect.exec("SELECT * FROM memos")
   erb :index
 end
 
@@ -28,13 +28,12 @@ get "/new" do
 end
 
 post "/memos" do
-  title = params[:title]
-  content = params[:content]
-  connect.exec("INSERT INTO memos (title, content) VALUES ($1, $2);", [title, content])
+  connect.exec("INSERT INTO memos (title, content) VALUES ('#{params[:title]}','#{params[:content]}')")
   redirect to("/memos")
 end
 
 get "/memos/:id" do
+  @memo = connect.exec("SELECT * FROM memos WHERE id = '#{params[:id]}'")
   erb :show
 end
 
