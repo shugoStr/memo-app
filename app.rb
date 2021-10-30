@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-require "sinatra"
-require "sinatra/reloader"
-require "erb"
-require "pg"
+require 'sinatra'
+require 'sinatra/reloader'
+require 'erb'
+require 'pg'
 
-connect = PG.connect(dbname: "memo")
+connect = PG.connect(dbname: 'memo')
 
 # XSS
 helpers do
@@ -14,42 +14,42 @@ helpers do
   end
 end
 
-get "/" do
-  redirect to("/memos")
+get '/' do
+  redirect to('/memos')
 end
 
-get "/memos" do
-  @memos = connect.exec("SELECT * FROM memos")
+get '/memos' do
+  @memos = connect.exec('SELECT * FROM memos')
   erb :index
 end
 
-get "/new" do
+get '/new' do
   erb :new
 end
 
-post "/memos" do
+post '/memos' do
   connect.exec("INSERT INTO memos (title, content) VALUES ('#{params[:title]}','#{params[:content]}')")
-  redirect to("/memos")
+  redirect to('/memos')
 end
 
-get "/memos/:id" do
+get '/memos/:id' do
   @memo = connect.exec("SELECT * FROM memos WHERE id = '#{params[:id]}'")
   erb :show
 end
 
-get "/memos/:id/edit" do
+get '/memos/:id/edit' do
   @memo = connect.exec("SELECT * FROM memos WHERE id = '#{params[:id]}'")
   erb :edit
 end
 
-patch "/memos/:id" do
+patch '/memos/:id' do
   connect.exec("UPDATE memos SET title = '#{params[:title]}', content = '#{params[:content]}' WHERE id= '#{params[:id]}'")
   redirect to("/memos/#{params[:id]}")
 end
 
-delete "/memos/:id" do
+delete '/memos/:id' do
   connect.exec("DELETE FROM memos WHERE id = '#{params[:id]}'")
-  redirect to("/memos")
+  redirect to('/memos')
 end
 
 not_found do
