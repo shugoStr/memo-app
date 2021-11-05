@@ -10,12 +10,14 @@ Thank you for coming!
 ### DB
 1. PostgreSQLの使用が可能になっていること。
 2. テーブルを作成する。
-  ```create table memos (
-    id serial,
-    title text,
-    content text,
-    primary key (id)
-    ); ```
+```
+create table memos (
+  id serial,
+  title text,
+  content text,
+  primary key (id)
+  );
+```
 
 ### git
 1. `https://github.com/shugoStr/memo-app.git` にてクローン。
