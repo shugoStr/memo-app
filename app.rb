@@ -29,36 +29,27 @@ get '/new' do
 end
 
 post '/memos' do
-  sql_insert = "INSERT INTO memos (title, content) VALUES ('#{params[:title]}','#{params[:content]}')"
-  connect.exec(sql_insert)
+  connect.exec('INSERT INTO memos (title, content) VALUES ($1, $2)', ["#{params[:title]}", "#{params[:content]}"])
   redirect to('/memos')
 end
 
 get '/memos/:id' do
-  sql_select_id = "SELECT * FROM memos WHERE id = '#{params[:id]}'"
-  @memo = connect.exec(sql_select_id)
+  @memo = connect.exec('SELECT * FROM memos WHERE id = $1', ["#{params[:id]}"])
   erb :show
 end
 
 get '/memos/:id/edit' do
-  sql_edit = "SELECT * FROM memos WHERE id = '#{params[:id]}'"
-  @memo = connect.exec(sql_edit)
+  @memo = connect.exec('SELECT * FROM memos WHERE id = $1', ["#{params[:id]}"])
   erb :edit
 end
 
-def sql_setting(id, title, content)
-  "UPDATE memos SET title = '#{title}', content = '#{content}' WHERE id = '#{id}'"
-end
-
 patch '/memos/:id' do
-  sql_update = sql_setting(params[:id], params[:title], params[:content])
-  connect.exec(sql_update)
+  connect.exec('UPDATE memos SET title = $1, content = $2 WHERE id = $3', ["#{params[:title]}", "#{params[:content]}","#{params[:id]}"])
   redirect to("/memos/#{params[:id]}")
 end
 
 delete '/memos/:id' do
-  sql_delete = "DELETE FROM memos WHERE id = '#{params[:id]}'"
-  connect.exec(sql_delete)
+  connect.exec('DELETE FROM memos WHERE id = $1', ["#{params[:id]}"])
   redirect to('/memos')
 end
 
