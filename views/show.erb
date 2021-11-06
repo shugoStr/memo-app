@@ -1,19 +1,19 @@
 <div class="card" style="width: 22rem;">
   <div class="card-header"><h4>タイトル</h4></div>
     <div class="card-body">
-      <p class="card-text"><%= h(@memo[:title]) %></p>
+      <p class="card-text"><%= h(@memo.first["title"]) %></p>
     </div>
     <div class="card-header"><h4>内容</h4></div>
     <div class="card-body">
-      <p class="card-text"><%= h(@memo[:content]) %></p>
+      <p class="card-text"><%= h(@memo.first["content"]) %></p>
     </div>
     <li class="list-group-item">
-      <form action="/memos/<%= @memo[:id] %>/edit" method="get">
+      <form action="/memos/<%= @memo.first["id"] %>/edit" method="get">
       <input class="btn btn-primary" type="submit" value="編集する">
       </form>
     </li>
     <li class="list-group-item">
-      <form action="/memos/<%= @memo[:id] %>" method="post">
+      <form action="/memos/<%= @memo.first["id"] %>" method="post">
       <input type="hidden" name="_method" value="DELETE">
       <input type="submit" class="btn btn btn-danger" value="削除する" onclick="return confirm('本当に削除しますか？')">
       </form>

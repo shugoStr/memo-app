@@ -3,7 +3,9 @@
 require 'sinatra'
 require 'sinatra/reloader'
 require 'erb'
-require 'sinatra/json'
+require 'pg'
+
+connect = PG.connect(dbname: 'memo')
 
 # XSS
 helpers do
@@ -16,12 +18,9 @@ get '/' do
   redirect to('/memos')
 end
 
-def build_json_data
-  Dir.glob('storage/*').sort.map { |file| JSON.parse(File.read(file)) }
-end
-
 get '/memos' do
-  @memos = build_json_data
+  sql_select = 'SELECT * FROM memos'
+  @memos = connect.exec(sql_select)
   erb :index
 end
 
@@ -30,36 +29,35 @@ get '/new' do
 end
 
 post '/memos' do
-  params[:id] = Time.now.strftime('%Y%m%d_%H%M%S')
-  data_hash = { id: params[:id], title: params[:title], content: params[:content] }
-  File.open("storage/#{Time.now.strftime('%Y%m%d_%H%M%S')}.json", 'w') { |file| file.puts JSON.generate(data_hash) }
+  title = params[:title]
+  content = params[:content]
+  connect.exec('INSERT INTO memos (title, content) VALUES ($1, $2)', [title, content])
   redirect to('/memos')
 end
 
-def file_path
-  "storage/#{File.basename(params[:id])}.json"
-end
-
 get '/memos/:id' do
-  @memo = JSON.parse(File.read(file_path), symbolize_names: true)
+  id = params[:id]
+  @memo = connect.exec('SELECT * FROM memos WHERE id = $1', [id])
   erb :show
 end
 
 get '/memos/:id/edit' do
-  @memo = JSON.parse(File.read(file_path), symbolize_names: true)
+  id = params[:id]
+  @memo = connect.exec('SELECT * FROM memos WHERE id = $1', [id])
   erb :edit
 end
 
 patch '/memos/:id' do
-  File.open(file_path, 'w') do |file|
-    data_hash = { id: params[:id], title: params[:title], content: params[:content] }
-    JSON.dump(data_hash, file)
-  end
+  title = params[:title]
+  content = params[:content]
+  id = params[:id]
+  connect.exec('UPDATE memos SET title = $1, content = $2 WHERE id = $3', [title, content, id])
   redirect to("/memos/#{params[:id]}")
 end
 
 delete '/memos/:id' do
-  File.delete(file_path)
+  id = params[:id]
+  connect.exec('DELETE FROM memos WHERE id = $1', [id])
   redirect to('/memos')
 end
 
